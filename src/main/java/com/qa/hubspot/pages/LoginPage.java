@@ -4,9 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.qa.hubspot.base.BasePage;
+import com.qa.hubspot.utils.ConstantUtil;
+import com.qa.hubspot.utils.ElementUtils;
 
 public class LoginPage extends BasePage{
 	private WebDriver driver;
+	ElementUtils elementUtil;
 	
 	// By Locators - OR
 	By username = By.id("username");
@@ -17,29 +20,36 @@ public class LoginPage extends BasePage{
 	
 	// Constructor of the page:
 	public LoginPage(WebDriver driver) {
+		elementUtil = new ElementUtils(driver);
 		this.driver = driver;
 	}
 	
 	// Page Actions:
 	public String getLoginPageTitle() {
-		return driver.getTitle();
+		//return driver.getTitle();
+		return elementUtil.waitForTitlePresent(ConstantUtil.LOGINPAGE_TITLE.trim(), 10);
 	}
 	
-	public String getLoginPageURL() {
-		return driver.getCurrentUrl();
+	public boolean getLoginPageURL() {
+		//return driver.getCurrentUrl();
+		return elementUtil.waitForUrl(ConstantUtil.LOGINPAGE_URL.trim(), 2);
 	}
 	
 	public boolean isSignUpLinkExist() {
-		return driver.findElement(signUpLink).isDisplayed();
+		return elementUtil.doIsDisplayed(signUpLink);
 	}
 	
 	public boolean isForgotPasswordLinkExist() {
-		return driver.findElement(forgotPswLink).isDisplayed();
+		//return driver.findElement(forgotPswLink).isDisplayed();
+		return elementUtil.doIsDisplayed(forgotPswLink);
 	}
 	
-	public void doLogin(String un, String pwd) {
-		driver.findElement(username).sendKeys(un);
-		driver.findElement(password).sendKeys(pwd);
-		driver.findElement(loginButton).click();
+	public HomePage doLogin(String un, String pwd) {
+		elementUtil.doSendKeys(username, un);
+		elementUtil.doSendKeys(password, pwd);
+		elementUtil.doClick(loginButton);
+		
+		//Page Chaining
+		return new HomePage(driver);
 	}
 }
