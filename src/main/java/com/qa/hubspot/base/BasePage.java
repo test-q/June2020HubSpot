@@ -22,8 +22,8 @@ public class BasePage {
 	Properties prop;
 	
 /**
- * This method is used to initialize the WebDriver on the basis og given browser name
- * @param browserName
+ * This method is used to initialize the WebDriver on the basis of given browser name
+ * @param Pass Properties
  * @return This method return driver
  */
 	public WebDriver init_driver(Properties prop) {
