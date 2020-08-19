@@ -26,8 +26,10 @@ public class BasePage {
  * @param browserName
  * @return This method return driver
  */
-	public WebDriver init_driver(String browserName) {
+	public WebDriver init_driver(Properties prop) {
+		String browserName = prop.getProperty("browser");
 		System.out.println("Browser Name is: " + browserName);
+		
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
@@ -37,6 +39,7 @@ public class BasePage {
 		} else {
 			System.out.println("Please Pass The Correct Browser Name : " + browserName);
 		}
+		
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

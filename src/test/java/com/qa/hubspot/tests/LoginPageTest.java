@@ -1,6 +1,8 @@
 package com.qa.hubspot.tests;
 
 
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -12,13 +14,15 @@ import com.qa.hubspot.pages.LoginPage;
 
 public class LoginPageTest {
 	BasePage basePage;
+	Properties prop;
 	WebDriver driver;
 	LoginPage loginPage;
 	
 	@BeforeTest
 	public void setup() {
 		basePage  = new BasePage();
-		driver = basePage.init_driver("chrome");
+		prop = basePage.init_prop();
+		driver = basePage.init_driver(prop);
 		loginPage = new LoginPage(driver);
 	}
 	
@@ -42,7 +46,7 @@ public class LoginPageTest {
 	
 	@Test(priority = 2)
 	public void verifyLoginTest() {
-		loginPage.doLogin("sr.test85@gmail.com", "Bugzilla16");
+		loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
 	}
 	
 	@AfterTest
