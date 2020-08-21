@@ -18,6 +18,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.qa.hubspot.base.BasePage;
+
 public class ElementUtils {
 
 	WebDriver driver;
@@ -36,6 +38,8 @@ public class ElementUtils {
 	 */
 	public WebElement getElement(By locator) {
 		WebElement element = driver.findElement(locator);
+		//if(Boolean.parseBoolean(BasePage.flashElement))
+		//jsUtil.flash(element);
 		return element;
 	}
 

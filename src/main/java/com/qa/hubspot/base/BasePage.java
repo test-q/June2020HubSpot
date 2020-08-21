@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.qa.hubspot.utils.OptionsManager;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 /**
  * 
@@ -20,6 +22,8 @@ public class BasePage {
 
 	WebDriver driver;
 	Properties prop;
+	OptionsManager optionsManager;
+	public static String flashElement;
 	
 /**
  * This method is used to initialize the WebDriver on the basis of given browser name
@@ -27,16 +31,20 @@ public class BasePage {
  * @return This method return driver
  */
 	public WebDriver init_driver(Properties prop) {
+		flashElement = prop.getProperty("highlights").trim();
 		String browserName = prop.getProperty("browser");
 		System.out.println("Browser Name is: " + browserName);
+		optionsManager = new OptionsManager(prop);
 		
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
-		} else if (browserName.equalsIgnoreCase("firefox")) {
+			driver = new ChromeDriver(optionsManager.getChromeOptions());
+		} 
+		else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
-		} else {
+			driver = new FirefoxDriver(optionsManager.getFirefoxOptions());
+		}
+		else {
 			System.out.println("Please Pass The Correct Browser Name : " + browserName);
 		}
 		

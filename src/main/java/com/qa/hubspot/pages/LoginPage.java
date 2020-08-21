@@ -11,18 +11,18 @@ public class LoginPage extends BasePage{
 	private WebDriver driver;
 	ElementUtils elementUtil;
 	
+	// Constructor of the page:
+	public LoginPage(WebDriver driver) {
+		elementUtil = new ElementUtils(driver);
+		this.driver = driver;
+	}
+	
 	// By Locators - OR
 	By username = By.id("username");
 	By password = By.id("password");
 	By loginButton = By.id("loginBtn");
 	By signUpLink = By.linkText("Sign up");
 	By forgotPswLink = By.linkText("Forgot my password");
-	
-	// Constructor of the page:
-	public LoginPage(WebDriver driver) {
-		elementUtil = new ElementUtils(driver);
-		this.driver = driver;
-	}
 	
 	// Page Actions:
 	public String getLoginPageTitle() {
