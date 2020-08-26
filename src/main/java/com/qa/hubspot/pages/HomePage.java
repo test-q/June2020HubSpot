@@ -3,10 +3,11 @@ package com.qa.hubspot.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.qa.hubspot.base.BasePage;
 import com.qa.hubspot.utils.ConstantUtil;
 import com.qa.hubspot.utils.ElementUtils;
 
-public class HomePage {
+public class HomePage extends BasePage{
 
 	private WebDriver driver;
 	ElementUtils elementUtil;

@@ -38,8 +38,8 @@ public class ElementUtils {
 	 */
 	public WebElement getElement(By locator) {
 		WebElement element = driver.findElement(locator);
-		//if(Boolean.parseBoolean(BasePage.flashElement))
-		//jsUtil.flash(element);
+		if(Boolean.parseBoolean(BasePage.flashElement))
+		jsUtil.flash(element);
 		return element;
 	}
 
@@ -56,7 +56,8 @@ public class ElementUtils {
 	}
 
 	public void doSendKeys(By locator, String value) {
-		driver.findElement(locator).sendKeys(value);
+		getElement(locator).sendKeys(value);
+		//driver.findElement(locator).sendKeys(value);
 	}
 
 	public void doClick(By locator) {
