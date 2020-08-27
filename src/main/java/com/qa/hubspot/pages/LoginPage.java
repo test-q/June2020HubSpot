@@ -18,11 +18,11 @@ public class LoginPage extends BasePage{
 	}
 	
 	// By Locators - OR
-	By username = By.id("username");
-	By password = By.id("password");
-	By loginButton = By.id("loginBtn");
-	By signUpLink = By.linkText("Sign up");
-	By forgotPswLink = By.linkText("Forgot my password");
+	private By username = By.id("username");
+	private By password = By.id("password");
+	private By loginButton = By.id("loginBtn");
+	private By signUpLink = By.linkText("Sign up");
+	private By forgotPswLink = By.linkText("Forgot my password");
 	
 	// Page Actions:
 	public String getLoginPageTitle() {

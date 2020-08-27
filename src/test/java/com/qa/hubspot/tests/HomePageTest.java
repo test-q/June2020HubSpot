@@ -9,7 +9,7 @@ import com.qa.hubspot.pages.HomePage;
 import com.qa.hubspot.utils.ConstantUtil;
 
 public class HomePageTest extends BaseTest {
-	HomePage homepage;
+	
 	@BeforeClass
 	public void HomePageSetUp() {
 		homepage = loginpage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
