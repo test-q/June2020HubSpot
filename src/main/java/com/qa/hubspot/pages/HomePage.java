@@ -13,9 +13,13 @@ public class HomePage extends BasePage{
 	ElementUtils elementUtil;
 
 	// By Locators - OR
-	By header = By.tagName("h1");
-	By accountName = By.cssSelector("span.account-name");
-	By settingsIcon = By.id("navSetting");
+	private By header = By.tagName("h1");
+	private By accountName = By.cssSelector("span.account-name");
+	private By settingsIcon = By.id("navSetting");
+	private By contactsParentMenu = By.id("nav-primary-contacts-branch");
+	private By contactsSubMenu =  By.id("nav-secondary-contacts");
+	private By salesParentMenu = By.id("nav-primary-sales-branch");
+	private By dealSubMenu = By.xpath("(//a[@id='nav-secondary-deals'])[1]");
 
 	// Constructor of the page:
 	public HomePage(WebDriver driver) {
@@ -45,5 +49,39 @@ public class HomePage extends BasePage{
 	public boolean isSettingIconExist() {
 		return elementUtil.doIsDisplayed(settingsIcon);
 	}
+	
+	private void clickOnContacts() {
+		elementUtil.waitForElementPresent(contactsParentMenu, 10);
+		elementUtil.doClick(contactsParentMenu);
+		elementUtil.waitForElementPresent(contactsSubMenu, 5);
+		elementUtil.doClick(contactsSubMenu);	
+	}
+	
+	public ContactPage goToContactpage() {
+		clickOnContacts();
+		return new ContactPage(driver);  //Page chaining for Contact Page
+	}
+	
+	private void clickonSales() {
+		elementUtil.waitForElementPresent(salesParentMenu, 10);
+		elementUtil.doClick(salesParentMenu);
+		elementUtil.waitForElementPresent(dealSubMenu, 10);
+		elementUtil.doClick(dealSubMenu);
+	}
+	
+	public DealPage goToDealPage() {
+		clickonSales();
+		driver.navigate().to("https://app.hubspot.com/contacts/8229364/deals/board/view/all/");
+		
+		return new DealPage(driver);  //Page chaining for Deal Page
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 }

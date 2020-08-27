@@ -7,6 +7,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
+import com.qa.hubspot.pages.ContactPage;
+import com.qa.hubspot.pages.DealPage;
 import com.qa.hubspot.pages.HomePage;
 import com.qa.hubspot.pages.LoginPage;
 
@@ -17,6 +19,8 @@ public class BaseTest {
 	public Properties prop;
 	public LoginPage loginpage;
 	public HomePage homepage;
+	public ContactPage contactpage;
+	public DealPage dealpage;
 
 	//If you want to execute some test case on chrome and some on firefox than use @Parameters
 //	@Parameters("browser")
