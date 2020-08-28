@@ -55,7 +55,7 @@ public class ContactPage extends BasePage{
 		String fullName = firstname+ " " +lastname;
 		System.out.println("Contact Created: " +fullName);
 		//span[text()='"+fullName+"']
-		elementUtil.waitForElementToBeVisible(By.xpath("//span[text()='"+fullName+"']"), 10);
+		elementUtil.waitForElementToBeVisible(By.xpath("//span[text()='"+fullName+"']"), 20);
 		boolean flag = elementUtil.doIsDisplayed(By.xpath("//span[text()='"+fullName+"']"));
 		elementUtil.clickWhenReady(contactBackLink, 10);
 		return flag;	

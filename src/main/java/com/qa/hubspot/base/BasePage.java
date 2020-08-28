@@ -1,11 +1,15 @@
 package com.qa.hubspot.base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,6 +28,7 @@ public class BasePage {
 	Properties prop;
 	OptionsManager optionsManager;
 	public static String flashElement;
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 	
 /**
  * This method is used to initialize the WebDriver on the basis of given browser name
@@ -38,21 +43,31 @@ public class BasePage {
 		
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver(optionsManager.getChromeOptions());
+			//driver = new ChromeDriver(optionsManager.getChromeOptions());
+			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));;
 		} 
 		else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver(optionsManager.getFirefoxOptions());
+			//driver = new FirefoxDriver(optionsManager.getFirefoxOptions());
+			tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
 		}
 		else {
 			System.out.println("Please Pass The Correct Browser Name : " + browserName);
 		}
 		
-		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("https://app.hubspot.com/login");
-		return driver;
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().window().maximize();
+		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		getDriver().get("https://app.hubspot.com/login");
+		return getDriver();
+	}
+	
+	/**
+	 * 
+	 * @return This method written synchronized ThreadLocal WebDriver
+	 */
+	public static synchronized WebDriver getDriver() {
+		return tlDriver.get();
 	}
 	
 	/**
@@ -71,6 +86,22 @@ public class BasePage {
 		}
 		
 		return prop;
+	}
+	
+	/**
+	 * This method take screenshot
+	 * @return path of screenshot
+	 */
+	public String getScreenshot() {
+		File src = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+		String path = System.getProperty("user.dir")+"/screenshots/"+System.currentTimeMillis()+".png";
+		File destination = new File(path);
+		try {
+			FileUtils.copyFile(src, destination);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return path;
 	}
 
 }
