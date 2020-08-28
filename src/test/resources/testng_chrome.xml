@@ -3,14 +3,20 @@
 
 <suite name="HubSpot Suite" thread-count="1" parallel="tests"
 	verbose="2">
+	
+	<listeners>
+		<listener class-name="com.qa.hubspot.listeners.ExtentReportListener" />
+		<listener class-name="com.qa.hubspot.listeners.ScreenshotListener" />
+	<!-- 	<listener class-name="com.qa.hubspot.listeners.PdfListener" /> -->
+	</listeners>
 
-<!-- 	<test name="Login Page Test">
+	<test name="Login Page Test">
 		<classes>
 			<class name="com.qa.hubspot.tests.LoginPageTest" />
 		</classes>
 	</test>
 
-	<test name="Home Page Test">
+<!-- 	<test name="Home Page Test">
 		<classes>
 			<class name="com.qa.hubspot.tests.HomePageTest" />
 		</classes>
@@ -20,12 +26,12 @@
 		<classes>
 			<class name="com.qa.hubspot.tests.ContactPageTest" />
 		</classes>
-	</test> -->
+	</test>
 	
 		<test name="Deal Page Test">
 		<classes>
 			<class name="com.qa.hubspot.tests.DealPageTest" />
 		</classes>
-	</test>
+	</test> -->
 
 </suite>
