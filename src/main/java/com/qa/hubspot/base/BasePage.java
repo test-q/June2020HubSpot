@@ -76,8 +76,38 @@ public class BasePage {
 	 */
 	public Properties init_prop() {
 		prop = new Properties();
+		String path = null;
+		String env = null;
+		
 		try {
-			FileInputStream finput = new FileInputStream("D:\\Rupali\\Workspace\\June2020HubSpot\\src\\main\\java\\com\\qa\\hubspot\\config\\Config.properties");
+			
+			env = System.getProperty("env");
+			System.out.println("Running on Envirnment: " + env);
+			
+			if(env == null) {
+				System.out.println("Running on Envirnment: " + "PROD");
+				path = "D:\\Rupali\\Workspace\\June2020HubSpot\\src\\main\\java\\com\\qa\\hubspot\\config\\Config.prod.properties";
+				
+			}else {
+				switch (env) {
+				case "qa":
+					path = "D:\\Rupali\\Workspace\\June2020HubSpot\\src\\main\\java\\com\\qa\\hubspot\\config\\Config.qa.properties";				
+					break;
+				case "dev":
+					path = "D:\\Rupali\\Workspace\\June2020HubSpot\\src\\main\\java\\com\\qa\\hubspot\\config\\Config.dev.properties";				
+					break;
+				case "stage":
+					path = "D:\\Rupali\\Workspace\\June2020HubSpot\\src\\main\\java\\com\\qa\\hubspot\\config\\Config.stage.properties";				
+					break;
+
+				default:
+					System.out.println("Please Pass the Correct Env Value...");
+					break;
+				}
+			}
+			
+			
+			FileInputStream finput = new FileInputStream(path);
 			prop.load(finput);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
