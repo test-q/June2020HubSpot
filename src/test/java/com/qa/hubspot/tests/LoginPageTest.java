@@ -6,8 +6,10 @@ import org.testng.annotations.Test;
 import com.qa.hubspot.base.BaseTest;
 import com.qa.hubspot.utils.ConstantUtil;
 
+
 public class LoginPageTest extends BaseTest {
 
+	
 	@Test(priority = 1)
 	public void verifyLoginPageTitleTest() {
 		String title = loginpage.getLoginPageTitle();
